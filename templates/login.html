@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block title %}Login Page{% endblock %}
+
+{% block head %}
+{% load static %}
+{% endblock %}
+
+{% block body %}
+<section class="login-form-section flex aj-c">
+    <div class="login-form-div p-5">
+        <div class="fs-38 t-c log-in mb-5">Log In</div>
+
+        {% if msg %}
+        <div class="alert alert-danger d-flex alert-dismissible align-items-center" role="alert">
+          
+            {{ msg }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            
+        </div>
+      {% endif %}
+
+        <div class="login-form">
+            <form action="" method="POST" class="flex-col a-normal">
+                {% csrf_token %}
+                <label for="username">Username</label>
+                <input class="px-2 py-1 br-5" type="text" name="username" id="username" placeholder="Username">
+
+                <label for="password" class="mt-3">Password</label>
+                <input class="px-2 py-1 br-5" type="password" id="password" name="password" placeholder="Password">
+                <p class="pass-error hide m-0 p-0">Password must have 8 to 12 Charecter</p>
+
+                <button type="submit" class="btn mt-4 login-btn">Submit</button>
+
+                <p class="mt-2 t-c fs-18">Don't have an account? <a href="{% url 'signup' %}">Sign Up</a></p>
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock %}

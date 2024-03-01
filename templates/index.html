@@ -1,0 +1,488 @@
+{% extends 'base.html' %}
+
+{% block title %}Home Page{% endblock %}
+{% block head %}
+{% load static %}
+{% endblock %}
+
+{% block body %}
+<section class="section1">
+
+  <div id="slider1" class="carousel slide carousel-fade" data-bs-ride="carousel">
+    <div class="carousel-indicators">
+      <button type="button" data-bs-target="#slider1" data-bs-slide-to="0" class="active" aria-current="true"
+        aria-label="Slide 1"></button>
+      <button type="button" data-bs-target="#slider1" data-bs-slide-to="1" aria-label="Slide 2"></button>
+      <button type="button" data-bs-target="#slider1" data-bs-slide-to="2" aria-label="Slide 3"></button>
+      <button type="button" data-bs-target="#slider1" data-bs-slide-to="3" aria-label="Slide 4"></button>
+    </div>
+    <div class="carousel-inner h-100">
+      <div class="carousel-item active h-100" data-bs-interval="3000">
+        <img src="{% static 'images/slide1.gif' %}" class="d-block w-100 h-100" alt="...">
+      </div>
+      <div class="carousel-item h-100" data-bs-interval="2000">
+        <img src="{% static 'images/slide2.jpg' %}" class="d-block w-100 h-100" alt="...">
+      </div>
+      <div class="carousel-item h-100" data-bs-interval="2000">
+        <img src="{% static 'images/slide3.jpeg' %}" class="d-block w-100 h-100" alt="...">
+      </div>
+      <div class="carousel-item h-100" data-bs-interval="2000">
+        <img src="{% static 'images/slide4.jpg' %}" class="d-block w-100 h-100" alt="...">
+      </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#slider1" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#slider1" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+</section>
+
+<br>
+
+<section class="section2 m-1 p-1">
+  <a href="{% url 'second' cat=T_shirts.first.subcategory.name id=0 %}">
+    <h1 id="title_of_category">Explore the best {{T_shirts.first.subcategory.name}}</h1>
+  </a>
+
+  <div id="T_shirts" class="carousel slide my-3 carousel-fade" data-bs-ride="carousel">
+
+    <div class="carousel-inner">
+      {% for product in T_shirts %}
+      {% if forloop.first or forloop.counter0|divisibleby:4 %}
+      <div class="carousel-item {% if forloop.first %}active{% endif %}">
+        <div class="row">
+          {% endif %}
+          <div class="col-xs-3 col-lg-3 col-md-3">
+            <a href="{% url 'second' cat=product.subcategory.name id=product.id %}">
+              <div class="card" style="width: 18rem;">
+                {% for image in product.images.all %}
+                {% if forloop.first %}
+                <img src='{{ image.image1.url }}' class="card-img-top sliding-cart-images card-imges" alt="...">
+                {% endif %}
+                {% endfor %}
+              </div>
+            </a>
+          </div>
+          {% if forloop.counter|divisibleby:4 or forloop.last %}
+        </div>
+      </div>
+      {% endif %}
+      {% endfor %}
+
+    </div>
+
+    <button class="carousel-control-prev home-arrow-btn" type="button" data-bs-target="#T_shirts" data-bs-slide="prev">
+      <img src="{% static 'images/left-arrow.svg' %}" class="icon-size" alt="">
+    </button>
+    <button class="carousel-control-next home-arrow-btn" type="button" data-bs-target="#T_shirts" data-bs-slide="next">
+
+      <img src="{% static 'images/right-arrow.svg' %}" class="icon-size" alt="">
+    </button>
+  </div>
+
+</section>
+
+<br>
+
+<section class="section2 m-1 p-1">
+  <a href="{% url 'second' cat=Shirts.first.subcategory.name id=0 %}">
+    <h1 id="title_of_category">Explore the best {{Shirts.first.subcategory.name}}</h1>
+  </a>
+
+  <div id="Shirts" class="carousel slide my-3 carousel-fade" data-bs-ride="carousel">
+
+    <div class="carousel-inner">
+      {% for product in Shirts %}
+      {% if forloop.first or forloop.counter0|divisibleby:4 %}
+      <div class="carousel-item {% if forloop.first %}active{% endif %}">
+        <div class="row">
+          {% endif %}
+          <div class="col-xs-3 col-lg-3 col-md-3">
+            <a href="{% url 'second' cat=product.subcategory.name id=product.id %}">
+              <div class="card" style="width: 18rem;">
+                {% for image in product.images.all %}
+                {% if forloop.first %}
+                <img src='{{ image.image1.url }}' class="card-img-top sliding-cart-images card-imges" alt="...">
+                {% endif %}
+                {% endfor %}
+              </div>
+            </a>
+          </div>
+          {% if forloop.counter|divisibleby:4 or forloop.last %}
+        </div>
+      </div>
+      {% endif %}
+      {% endfor %}
+
+    </div>
+
+    <button class="carousel-control-prev home-arrow-btn" type="button" data-bs-target="#Shirts"
+      data-bs-slide="prev">
+      <img src="{% static 'images/left-arrow.svg' %}" class="icon-size" alt="">
+    </button>
+    <button class="carousel-control-next home-arrow-btn" type="button" data-bs-target="#Shirts"
+      data-bs-slide="next">
+      <img src="{% static 'images/right-arrow.svg' %}" class="icon-size" alt="">
+    </button>
+  </div>
+
+</section>
+
+
+
+<section class="section3 m-1 pt-5 px-4 p-1">
+  <div>
+    <a href="{% url 'second' cat='M' id=0 %}">
+      <div class="mens-sec-3" style="background-image: url('static/images/mens.jpg');">
+      </div>
+      <p class="p-sec-3">Men's Cloths</p>
+    </a>
+  </div>
+  <div>
+    <a href="{% url 'second' cat='W' id=0 %}">
+      <div class="womens-sec-3" style="background-image: url('static/images/womens.webp');">
+      </div>
+      <p class="p-sec-3">Women's Cloths</p>
+    </a>
+  </div>
+</section>
+
+
+
+<section class="section4 m-1 p-1">
+  <a href="{% url 'second' cat=hoodies.first.subcategory.name id=0 %}">
+    <h1>Explore the best {{hoodies.first.subcategory.name}}</h1>
+  </a>
+
+  <div id="slider3" class="carousel slide my-3 carousel-fade" data-bs-ride="carousel">
+
+    <div class="carousel-inner">
+      {% for product in hoodies %}
+      {% if forloop.first or forloop.counter0|divisibleby:4 %}
+      <div class="carousel-item {% if forloop.first %}active{% endif %}">
+        <div class="row">
+          {% endif %}
+          <div class="col-xs-3 col-lg-3 col-md-3">
+            <a href="{% url 'second' cat=product.subcategory.name id=product.id %}">
+              <div class="card" style="width: 18rem;">
+                {% for image in product.images.all %}
+                {% if forloop.first %}
+                <img src='{{ image.image1.url }}' class="card-img-top sliding-cart-images card-imges" alt="...">
+                {% endif %}
+                {% endfor %}
+              </div>
+            </a>
+          </div>
+          {% if forloop.counter|divisibleby:4 or forloop.last %}
+        </div>
+      </div>
+      {% endif %}
+      {% endfor %}
+
+    </div>
+
+    <button class="carousel-control-prev home-arrow-btn" type="button" data-bs-target="#slider3" data-bs-slide="prev">
+      <!-- <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span> -->
+      <img src="{% static 'images/left-arrow.svg' %}" class="icon-size" alt="">
+    </button>
+    <button class="carousel-control-next home-arrow-btn" type="button" data-bs-target="#slider3" data-bs-slide="next">
+
+      <img src="{% static 'images/right-arrow.svg' %}" class="icon-size" alt="">
+    </button>
+  </div>
+
+</section>
+
+<br>
+
+<section class="section4 m-1 p-1">
+  <a href="{% url 'second' cat=Sweatshirts.first.subcategory.name id=0 %}">
+    <h1>Explore the best {{Sweatshirts.first.subcategory.name}}</h1>
+  </a>
+
+  <div id="Sweatshirts" class="carousel slide my-3 carousel-fade" data-bs-ride="carousel">
+
+    <div class="carousel-inner">
+      {% for product in Sweatshirts %}
+      {% if forloop.first or forloop.counter0|divisibleby:4 %}
+      <div class="carousel-item {% if forloop.first %}active{% endif %}">
+        <div class="row">
+          {% endif %}
+          <div class="col-xs-3 col-lg-3 col-md-3">
+            <a href="{% url 'second' cat=product.subcategory.name id=product.id %}">
+              <div class="card" style="width: 18rem;">
+                {% for image in product.images.all %}
+                {% if forloop.first %}
+                <img src='{{ image.image1.url }}' class="card-img-top sliding-cart-images card-imges" alt="...">
+                {% endif %}
+                {% endfor %}
+              </div>
+            </a>
+          </div>
+          {% if forloop.counter|divisibleby:4 or forloop.last %}
+        </div>
+      </div>
+      {% endif %}
+      {% endfor %}
+
+    </div>
+
+    <button class="carousel-control-prev home-arrow-btn" type="button" data-bs-target="#Sweatshirts" data-bs-slide="prev">
+      <img src="{% static 'images/left-arrow.svg' %}" class="icon-size" alt="">
+    </button>
+    <button class="carousel-control-next home-arrow-btn" type="button" data-bs-target="#Sweatshirts" data-bs-slide="next">
+
+      <img src="{% static 'images/right-arrow.svg' %}" class="icon-size" alt="">
+    </button>
+  </div>
+
+</section>
+
+
+<section class="section5 m-1 pt-5 px-4 p-1">
+  <div>
+    <a href="{% url 'second' cat='Top Wears' id=0 %}">
+      <div class="top-sec-5" style="background-image: url('static/images/Top_cloths.jpg');">
+      </div>
+      <p class="p-sec-3">Top Wears</p>
+    </a>
+  </div>
+  <div>
+    <a href="{% url 'second' cat='Bottom Wears' id=0 %}">
+      <div class="bottom-sec-5" style="background-image: url('static/images/bottom.jpg');">
+      </div>
+      <p class="p-sec-3">Bottem Wears</p>
+    </a>
+  </div>
+</section>
+
+<section class="section6 m-1 p-1">
+  <a href="{% url 'second' cat='tops' id=0 %}">
+    <h1>Explore all Tops</h1>
+  </a>
+
+  <div id="allTops" class="carousel slide my-3 carousel-fade" data-bs-ride="carousel">
+
+    <div class="carousel-inner">
+      {% for product in allTops %}
+      {% if forloop.first or forloop.counter0|divisibleby:4 %}
+      <div class="carousel-item {% if forloop.first %}active{% endif %}">
+        <div class="row">
+          {% endif %}
+          <div class="col-xs-3 col-lg-3 col-md-3">
+            <a href="{% url 'second' cat='Tops' id=product.id %}">
+              <div class="card" style="width: 18rem;">
+                {% for image in product.images.all %}
+                {% if forloop.first %}
+                <img src='{{ image.image1.url }}' class="card-img-top sliding-cart-images card-imges" alt="...">
+                {% endif %}
+                {% endfor %}
+              </div>
+            </a>
+          </div>
+          {% if forloop.counter|divisibleby:4 or forloop.last %}
+        </div>
+      </div>
+      {% endif %}
+      {% endfor %}
+
+    </div>
+
+    <button class="carousel-control-prev home-arrow-btn" type="button" data-bs-target="#allTops" data-bs-slide="prev">
+      <img src="{% static 'images/left-arrow.svg' %}" class="icon-size" alt="">
+    </button>
+    <button class="carousel-control-next home-arrow-btn" type="button" data-bs-target="#allTops" data-bs-slide="next">
+
+      <img src="{% static 'images/right-arrow.svg' %}" class="icon-size" alt="">
+    </button>
+  </div>
+</section>
+
+<br>
+
+<section class="section6 m-1 p-1">
+  <a href="{% url 'second' cat=OffShoulderTops.first.subcategory.name id=0 %}">
+    <h1>Explore all the {{OffShoulderTops.first.subcategory.name}}</h1>
+  </a>
+
+  <div id="OffShoulderTops" class="carousel slide my-3 carousel-fade" data-bs-ride="carousel">
+
+    <div class="carousel-inner">
+      {% for product in OffShoulderTops %}
+      {% if forloop.first or forloop.counter0|divisibleby:4 %}
+      <div class="carousel-item {% if forloop.first %}active{% endif %}">
+        <div class="row">
+          {% endif %}
+          <div class="col-xs-3 col-lg-3 col-md-3">
+            <a href="{% url 'second' cat=product.subcategory.name id=product.id %}">
+              <div class="card" style="width: 18rem;">
+                {% for image in product.images.all %}
+                {% if forloop.first %}
+                <img src='{{ image.image1.url }}' class="card-img-top sliding-cart-images card-imges" alt="...">
+                {% endif %}
+                {% endfor %}
+              </div>
+            </a>
+          </div>
+          {% if forloop.counter|divisibleby:4 or forloop.last %}
+        </div>
+      </div>
+      {% endif %}
+      {% endfor %}
+
+    </div>
+
+    <!-- <button class="carousel-control-prev home-arrow-btn" type="button" data-bs-target="#OffShoulderTops" data-bs-slide="prev">
+      <img src="{% static 'images/left-arrow.svg' %}" class="icon-size" alt="">
+    </button>
+    <button class="carousel-control-next home-arrow-btn" type="button" data-bs-target="#OffShoulderTops" data-bs-slide="next">
+
+      <img src="{% static 'images/right-arrow.svg' %}" class="icon-size" alt="">
+    </button> -->
+  </div>
+</section>
+
+<br>
+
+
+<section class="section6 m-1 p-1">
+  <a href="{% url 'second' cat=TubeTops.first.subcategory.name id=0 %}">
+    <h1>Explore all the {{TubeTops.first.subcategory.name}}</h1>
+  </a>
+
+  <div id="TubeTops" class="carousel slide my-3 carousel-fade" data-bs-ride="carousel">
+
+    <div class="carousel-inner">
+      {% for product in TubeTops %}
+      {% if forloop.first or forloop.counter0|divisibleby:4 %}
+      <div class="carousel-item {% if forloop.first %}active{% endif %}">
+        <div class="row">
+          {% endif %}
+          <div class="col-xs-3 col-lg-3 col-md-3">
+            <a href="{% url 'second' cat=product.subcategory.name id=product.id %}">
+              <div class="card" style="width: 18rem;">
+                {% for image in product.images.all %}
+                {% if forloop.first %}
+                <img src='{{ image.image1.url }}' class="card-img-top sliding-cart-images card-imges" alt="...">
+                {% endif %}
+                {% endfor %}
+              </div>
+            </a>
+          </div>
+          {% if forloop.counter|divisibleby:4 or forloop.last %}
+        </div>
+      </div>
+      {% endif %}
+      {% endfor %}
+
+    </div>
+
+    <!-- <button class="carousel-control-prev home-arrow-btn" type="button" data-bs-target="#TubeTops" data-bs-slide="prev">
+      <img src="{% static 'images/left-arrow.svg' %}" class="icon-size" alt="">
+    </button>
+    <button class="carousel-control-next home-arrow-btn" type="button" data-bs-target="#TubeTops" data-bs-slide="next">
+
+      <img src="{% static 'images/right-arrow.svg' %}" class="icon-size" alt="">
+    </button> -->
+  </div>
+</section>
+
+<br>
+
+<section class="section7">
+  <div id="slider5" class="carousel slide carousel-fade" data-bs-ride="carousel">
+    <div class="carousel-indicators">
+      <button type="button" data-bs-target="#slider5" data-bs-slide-to="0" class="active" aria-current="true"
+        aria-label="Slide 1"></button>
+      <button type="button" data-bs-target="#slider5" data-bs-slide-to="1" aria-label="Slide 2"></button>
+      <button type="button" data-bs-target="#slider5" data-bs-slide-to="2" aria-label="Slide 3"></button>
+      <button type="button" data-bs-target="#slider5" data-bs-slide-to="3" aria-label="Slide 4"></button>
+    </div>
+    <div class="carousel-inner h-100">
+      <div class="carousel-item active h-100" data-bs-interval="3000">
+        <img src="{% static 'images/slider5.jpg' %}" class="d-block w-100 h-100 dark-image" alt="...">
+        <div class="carousel-caption d-none d-md-block">
+          <p class="sec7-p1">Welcome to Dream Cloths </p>
+        </div>
+      </div>
+      <div class="carousel-item h-100" data-bs-interval="2000">
+        <img src="{% static 'images/slider6.jpg' %}" class="d-block w-100 h-100 dark-image" alt="...">
+        <div class="carousel-caption d-none d-md-block">
+          <p class="sec7-p1">Quality Meets Fashion</p>
+        </div>
+      </div>
+      <div class="carousel-item h-100" data-bs-interval="2000">
+        <img src="{% static 'images/slider7.jpg' %}" class="d-block w-100 h-100 dark-image" alt="...">
+        <div class="carousel-caption d-none d-md-block">
+          <p class="sec7-p1">Find Dream Cloths</p>
+        </div>
+      </div>
+      <div class="carousel-item h-100" data-bs-interval="2000">
+        <img src="{% static 'images/slider8.jpg' %}" class="d-block w-100 h-100 dark-image" alt="...">
+        <div class="carousel-caption d-none d-md-block">
+          <p class="sec7-p1">Best Shopping Experience</p>
+        </div>
+      </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#slider5" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon b-white" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#slider5" data-bs-slide="next">
+      <span class="carousel-control-next-icon b-white" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+</section>
+
+<br>
+
+<section class="section8 m-1 p-1">
+  <a href="{% url 'second' cat=Sweaters.first.subcategory.name id=0 %}">
+    <h1>Explore the best {{Sweaters.first.subcategory.name}}</h1>
+  </a>
+
+  <div id="slider6" class="carousel slide my-3 carousel-fade" data-bs-ride="carousel">
+
+    <div class="carousel-inner">
+      {% for product in Sweaters %}
+      {% if forloop.first or forloop.counter0|divisibleby:4 %}
+      <div class="carousel-item {% if forloop.first %}active{% endif %}">
+        <div class="row">
+          {% endif %}
+          <div class="col-xs-3 col-lg-3 col-md-3">
+            <a href="{% url 'second' cat=product.subcategory.name id=product.id %}">
+              <div class="card" style="width: 18rem;">
+                {% for image in product.images.all %}
+                {% if forloop.first %}
+                <img src='{{ image.image1.url }}' class="card-img-top sliding-cart-images card-imges" alt="...">
+                {% endif %}
+                {% endfor %}
+              </div>
+            </a>
+          </div>
+          {% if forloop.counter|divisibleby:4 or forloop.last %}
+        </div>
+      </div>
+      {% endif %}
+      {% endfor %}
+
+    </div>
+
+    <button class="carousel-control-prev home-arrow-btn" type="button" data-bs-target="#slider6" data-bs-slide="prev">
+      <img src="{% static 'images/left-arrow.svg' %}" class="icon-size" alt="">
+    </button>
+    <button class="carousel-control-next home-arrow-btn" type="button" data-bs-target="#slider6" data-bs-slide="next">
+
+      <img src="{% static 'images/right-arrow.svg' %}" class="icon-size" alt="">
+    </button>
+  </div>
+
+</section>
+
+{% endblock %}

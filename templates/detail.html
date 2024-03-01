@@ -1,0 +1,123 @@
+{% extends 'base.html' %}
+
+{% block title %}Details Page{% endblock %}
+
+{% block head %}
+{% load static %}
+{% endblock head %}
+
+{% block body %}
+
+<section class="section22 row w-100 h-100 mx-1">
+    <div class="col-sm-1 height">
+        <div class="image-option h-100 w-100 flex-col">
+            {% for images in product.images.all %}
+            {% if forloop.counter == 1 %}
+            <img src="{{ images.image1.url }}" data-image="{{ images.image1.url }}"
+                class="w-100 cp img-options img-option1" alt="">
+            <img src="{{ images.image2.url }}" data-image="{{ images.image2.url }}"
+                class="w-100 cp img-options img-option2" alt="">
+            <img src="{{ images.image3.url }}" data-image="{{ images.image3.url }}"
+                class="w-100 cp img-options img-option3" alt="">
+            {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+    <div class="col-sm-5 height">
+        <div class="detail-image h-100 w-100 px-3 py-2">
+            {% for images in product.images.all %}
+            {% if forloop.counter == 1 %}
+            <img src="{{ images.image1.url }}" class="w-100 h-100 img-detail" alt="">
+            {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+    <div class=" col-sm-6 height py-2 pr-5 pl-0">
+        <div class="p-d-name">
+            <h1>{{product.name}}</h1>
+        </div>
+        <hr>
+        <div class="colors mx-3">
+            <p class="f-style colors-name">Available Color's</p>
+            <div class="color-avialable mx-5 flex">
+                {% for image in product.images.all %}
+                <div class="img-and-color flex-col">
+                    <img class="color-detail cp {{image.color}}" src="{{image.image1.url}}"
+                        data-c-image1="{{image.image1.url}}" data-c-image2="{{image.image2.url}}"
+                        data-c-image3="{{image.image3.url}}" data-color="{{ image.color }}" data-addCartBtn="{% url 'addCart' id=product.id color=image.color %}">
+                    <p class="f-style">{{image.color}}</p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="brand mx-3">
+            <div class="bold">BRAND:</div> {{product.brand}}
+        </div>
+        <br>
+        <div class="Price-size mx-3">
+            <div class="rs font-weight-bolder">RS: {{product.price}}</div>
+        </div>
+        <div class="add-cart mx-3 my-2">
+            <form class="w-100" method="post" id="size-form" action="">
+                {% csrf_token %}
+
+                <label for="size">Chosse Size:</label>
+                <select class="bold lab bg-transperent" name="size" id="size">
+                    <option class="size" value="S">S</option>
+                    <option class="size" value="M">M</option>
+                    <option class="size" value="L">L</option>
+                    <option class="size" value="XL">XL</option>
+                </select>
+                <!-- <select class="bold lab bg-transperent" name="color" id="size">
+                    
+                    <option class="size" value="{{i.color}}">{{i.color}}</option>
+
+                </select> -->
+                <button type="submit" class="btn btn-outline-secondary py-1 mb-1">Go</button>
+            </form>
+            <a href="{% url 'addCart' id=product.id color=product.images.first.color %}"  onclick="submitForm()" class="btn btn-outline-success mx-5 my-3 px-5 add-to-cart">Add To Cart</a>
+            
+            
+        </div>
+        <div class="cloth-info">
+            <h2>Product Info</h2>
+            {% for i in product.details.all %}
+            <pre><span class="bolder">{{i.main}}:</span> {{i.sub}}</pre>
+            {% endfor %}
+        </div>
+        <div class="cloth-detail">
+            <h2>Details</h2>
+            <pre class="description">{{product.description}}</pre>
+        </div>
+    </div>
+    <h2 class="p-3">suggetions</h2>
+    
+  <div class="data-section flex">
+    {% for product in sort %}
+    <div class="custom-card">
+      {% for image in product.images.all %}
+      {% if forloop.first %}
+      <a href="{% url 'detail' id=product.id %}">
+      <img class="m-image" src="{{image.image1.url}}" alt="">
+    </a>
+      {% endif %}
+      {% endfor %}
+      <div class="flex colors">
+        {% for image in product.images.all %}
+        <button class="c-button {{image.color}}" data-image="{{ image.image1.url }}"></button>
+        {% endfor %}
+
+      </div>
+      <a href="{% url 'detail' id=product.id %}">
+      <p class="p-name px-2">{{product.name}}</p>
+    </a>
+      <div class="see-detail flex">
+        <a href="{% url 'detail' id=product.id %}" class="btn see-detail-btn">Rs {{product.price}}</a>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+
+</section>
+
+{% endblock body %}

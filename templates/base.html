@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %}</title>
+    {% load static %}
+    {% block head %}
+    {% endblock %}
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+
+<body>
+    <header>
+        <nav>
+            <div class="first-nav">
+                <img src="{% static 'images/logo4.png' %}" alt="" class="logo">
+            </div>
+            <nav class="child-nav">
+                <div class="child-nav-div1">
+                    <div class="home">
+                        <a href="{% url 'home' %}">
+                            <img class="icon-size" src="{% static 'images/home.svg' %}" alt="">
+                        </a>
+                    </div>
+                    <div class="input">
+                        <form action="" method="GET">
+                            <input type="text" id="search" name="search" placeholder="Search here">
+                            <button type="submit" class="btn p-0">
+                                <img type="submit" src="{% static 'images/search.svg' %}" alt="" style="width: 25px;">
+                            </button>
+                        </form>
+                    </div>
+                    <div class="last-nav1-div">
+                        {% if request.user.is_authenticated %}
+                        <div class="flex-col">
+                            <a href="{% url 'order' %}"><img class="icon-size" src="{% static 'images/order.svg' %}"
+                                    alt="">
+                                <pre class="m-0">Orders</pre>
+                            </a>
+                        </div>
+                        <div class="flex-col">
+                            <a href="{% url 'cart' %}"><img class="icon-size" src="{% static 'images/cart.svg' %}"
+                                    alt="">
+                                <pre class="m-0">Cart</pre>
+                            </a>
+                        </div>
+                        <div id="profile" class="cp flex-col">
+                            <img class="icon-size" src="{% static 'images/A-user.svg' %}">
+                            <pre class="m-0">Profile</pre>
+                        </div>
+                        <!-- <p class="cp fw-5 m-0">Log Out</p> -->
+                        {% else %}
+                        <div class="flex-col">
+                            <a href="{% url 'loginBtn' %}">
+                                <img class="icon-size cp" src="{% static 'images/UA-user.svg' %}">
+                                <pre class="m-0">Log In</pre>
+                            </a>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+                <hr>
+                <div class="child-nav-div2">
+                    <ul>
+                        <a href="{% url 'second' cat='M' id=0 %}">
+                            <li>Means</li>
+                        </a>
+                        <a href="{% url 'second' cat='W' id=0 %}">
+                            <li>Womens</li>
+                        </a>
+                        <a href="{% url 'second' cat='B' id=0 %}">
+                            <li>Both</li>
+                        </a>
+                        <a href="{% url 'second' cat='Top Wears' id=0 %}">
+                            <li>Top Wears</li>
+                        </a>
+                        <a href="{% url 'second' cat='Bottom Wears' id=0 %}">
+                            <li>Bottom Wears</li>
+                        </a>
+                    </ul>
+                </div>
+            </nav>
+        </nav>
+        <hr>
+        {% if request.user.is_authenticated %}
+        <div class="profile hide">
+            <div class="profile-option t-c py-1">
+                Edit Profile
+            </div>
+            <hr class="m-1 mx-3">
+            <a href="{% url 'logoutBtn' %}">
+                <div class="profile-option t-c py-1">
+                    Log Out
+                </div>
+            </a>
+        </div>
+        {% endif %}
+    </header>
+
+    <main>
+
+        {% block body %}
+
+        {% endblock %}
+
+    </main>
+
+    <footer>
+
+    </footer>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/script.js' %}"></script>
+</body>
+
+</html>

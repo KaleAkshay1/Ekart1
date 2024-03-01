@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+
+{% block title %}Cart Page{% endblock %}
+
+{% block head %}
+{% load static %}
+{% endblock head %}
+
+{% block body %}
+<section class="section14 m-3 px-3 flex-col col-md-11 o-h">
+    <h2 class="ta-center hed my-1 py-0 mt-3 mb-1">Cart Page</h2>
+
+    {% for i in cloth %}
+    <div class="card mb-3 custom-card1" style="width: 1000px; height:300px;">
+        <div class="row g-0 h-100">
+            <div class="col-md-4 h-100">
+                {% for image in i.product.images.all %}
+                {% if i.pColor == image.color.name %}
+                <img src="{{ image.image1.url }}" class="m-image img-fluid rounded-start h-100 w-100" alt="...">
+                {% endif %}
+                {% endfor %}
+            </div>
+            <div class="col-md-8">
+                <p class="p-name fs-22 mt-2 px-1">{{i.product.name}}</p>
+                <div class="my-1 fs-20">
+                    <div class="bold p-2">Orderd Color:</div> {{i.pColor}}
+                </div>
+                <div class="fs-20">
+                    <div class="bold px-2">Orderd Size:</div> {{i.size}}
+                </div>
+                
+                <div class="fs-20">
+                    <div class="bold px-2">Price:</div> {{i.price}}
+                </div>
+                <div class="fs-20 flex">
+                    <div class="bold px-2">Quantity:</div>
+                    <a href="{% url 'qtyUpdate' id=i.id mode=0 %}" class="btn btn-danger">-</a>
+                    <input type="text" id="qty" name="qty" value="{{i.qty}}" class="w-10">
+                    <a href="{% url 'qtyUpdate' id=i.id mode=1 %}" class="btn btn-success">+</a>
+                </div>
+                <!-- <div class="fs-20 bold p-2">Available Colors:</div>
+                <div class="flex colors mt-1">
+                    {% for image in i.product.images.all %}
+                    <button class="c-button {{image.color}}" data-image="{{ image.image1.url }}"></button>
+                    {% endfor %}
+                </div> -->
+                <a href="{% url 'payment' id=i.id %}" class="btn bg-info fs-20 mt-2 mx-1">Buy Now</a>
+                <!-- <button class="btn btn-warning fs-20 mt-2 mx-1 modifyCart">Modify</button> -->
+                <a href="{% url 'cartDelit' id=i.id %}" class="btn btn-secondary fs-20 mt-2 mx-1">Cancel</a>
+                <p class="ml-5 pl-5 t-c fs-12 time">Updated date: {{i.updated_at}}</p>
+            </div>
+        </div>
+    </div>
+    <!-- <div class="card mb-3 custom-card1" style="max-width: 700px;">
+        <h2 class="t-c p-1">Modifyed item</h2>
+        <div class="fs-22">
+            {{i.product.name}}
+        </div>
+        <hr class="mx-5">
+        <form action="POST">
+            {% csrf_token %}
+        <div class="container row">
+                <div class="color col-md-5">
+                    <h2 class="t-c p-1">Choose Color</h2>
+                    <div class="color flex aj-c">
+                        <select name="mColor" id="mColor" class="mb-3 bold lab bg-transperent">
+                            {% for image in i.product.images.all %}
+                            <option value="{{image.color}}">{{image.color}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="size col-md-5">
+                    <h2 class="t-c p-1">Choose Size</h2>
+                    <div class="size flex aj-c">
+                    <select name="mColor" id="mSize" class="mb-3 bold lab bg-transperent">
+                        <option value="S">S</option>
+                        <option value="M">M</option>
+                        <option value="L">L</option>
+                        <option value="XL">XL</option>
+                    </select>
+                </div>
+                </div>
+                <button type="Submit" class="btn btn-primary mx-5 w-50 my-2">Save</button>
+            </div>
+        </form>
+    </div> -->
+    {% endfor %}
+</section>
+{% endblock body %}

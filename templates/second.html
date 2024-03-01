@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+
+{% block title %}Welcome to Dream Cloths{% endblock %}
+
+{% block head %}
+{% load static %}
+{% endblock head %}
+
+{% block body %}
+<h2 class="ta-center hed my-1 py-0">{% if cat == 'M' %}Men's Cloths{% elif cat == 'W' %}Women's cloths{% elif cat == 'B' %}Men's and Women's cloths{% elif cat in brand %}Brand is {{cat}}{% else %}{{cat}}{% endif %}</h2>
+<section class="flex-second flex">
+  <div class="sort-section">
+    <div class="select brand my-3 mx-2 flex">
+      <h4 class="my-1 select-text">BRAND</h4>
+      <img id="arrow" class="rotate" src="{% static 'images/arrow.png' %}" alt="">
+    </div>
+    <div class="options brand-option m-2 ">
+      {% for i in brand %}
+      <div class="option w-100">
+        <a href="{% url 'second' cat=i id=0 %}">
+          <h5>{{i}}</h5>
+        </a>
+        {% if not forloop.last %}
+        <hr>
+        {% endif %}
+      </div>
+      {% endfor %}
+    </div>
+    <div class="price p-3 py-2">
+      <h3>Price</h3>
+      <ul>
+        <a href="{% url 'price' price='high' %}">
+          <li>High To Low</li>
+        </a>
+        <a href="{% url 'price' price='low' %}">
+          <li>Low To High</li>
+        </a>
+      </ul>
+    </div>
+    <div class="price-form px-2">
+      <form class="flex" action="{% url 'price' 'low' %}" method="post">
+        {% csrf_token %}
+        <div class="min-max px-1 py-2">
+          <label for="min">Rs</label>
+          <input type="text" name="min" id="min" placeholder="Min">
+        </div>
+        <div class="min-max px-1 py-2">
+          <label for="max">Rs</label>
+          <input type="text" name="max" id="max" placeholder="Max">
+        </div>
+        <button class="btn btn-outline-secondary">Go</button>
+      </form>
+    </div>
+  </div>
+  <div class="data-section flex">
+    {% for product in type %}
+    <div class="custom-card custom-card1">
+      {% for image in product.images.all %}
+      {% if forloop.first %}
+      <a href="{% url 'detail' id=product.id %}">
+      <img class="m-image" src="{{image.image1.url}}" alt="">
+    </a>
+      {% endif %}
+      {% endfor %}
+      <div class="flex colors">
+        {% for image in product.images.all %}
+        <button class="c-button {{image.color}}" data-image="{{ image.image1.url }}"></button>
+        {% endfor %}
+
+      </div>
+      <a href="{% url 'detail' id=product.id %}">
+      <p class="p-name px-2">{{product.name}}</p>
+    </a>
+      <div class="see-detail flex">
+        <a href="{% url 'detail' id=product.id %}" class="btn see-detail-btn">Rs {{product.price}}</a>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+
+{% endblock body %}

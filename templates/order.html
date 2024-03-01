@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block title %}Order Page{% endblock %}
+
+{% block head %}
+{% load static %}
+{% endblock head %}
+
+{% block body %}
+<section class="section14 m-3 px-3 flex-col col-md-11 o-h">
+    <h2 class="ta-center hed mt-3 mb-1 py-0">Order Page</h2>
+    {% for i in obj %}
+    <div class="card mb-3 custom-card1" style="width: 1000px; height:300px;">
+        <div class="row g-0 h-100">
+            <div class="col-md-4 h-100">
+                {% for image in i.product.images.all %}
+                {% if i.pColor == image.color.name %}
+                <img src="{{ image.image1.url }}" class="m-image img-fluid rounded-start h-100 w-100" alt="...">
+                {% endif %}
+                {% endfor %}
+            </div>
+            <div class="col-md-8 p-2 px-4">
+                <p class="p-name fs-22 mt-2 px-1">{{i.product.name}}</p>
+                <div class="my-1 fs-20">
+                    <div class="bold p-2">Product Price:</div> {{i.product.price}}
+                </div>
+                <div class="fs-20">
+                    <div class="bold px-2">Orderd Size:</div> {{i.size}}
+                </div>
+                <div class="fs-20">
+                    <div class="bold px-2">Product Quantity:</div> {{i.qty}}
+                </div>
+                
+                <div class="fs-20 my-2">
+                    <button class="bold px-2 fs-22 btn btn-outline-success">Total Payment: {{i.price}}</button>
+                </div>
+                
+                <p class="ml-5 pl-5 t-c fs-12 time">payment due date: {{i.created_at}}</p>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</section>
+{% endblock %}

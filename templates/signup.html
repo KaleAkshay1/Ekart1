@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block title %}SignUP Page{% endblock %}
+
+{% block head %}
+{% load static %}
+{% endblock %}
+
+{% block body %}
+<section class="signup-form-section flex aj-c mb-5">
+    <div class="signup-form-div px-5 pt-5 pb-2">
+        <div class="fs-38 t-c signup mb-4">Sign Up</div>
+
+        {% if msg %}
+          <div class="alert alert-danger d-flex alert-dismissible align-items-center" role="alert">
+            
+              {{ msg }}
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+
+          </div>
+        {% endif %}
+
+
+        <div class="signup-form">
+            <form action="" method="POST" class="flex-col a-normal">
+                {% csrf_token %}
+                <label for="username">Username</label>
+                <input class="px-2 py-1 br-5" type="text" name="username" id="username" placeholder="Username">
+
+                <label for="email" class="mt-2">Email</label>
+                <input class="px-2 py-1 br-5" type="email" name="email" id="email" placeholder="Email">
+
+                <label for="password" class="mt-2">Password</label>
+                <input class="px-2 py-1 br-5" type="password" id="password" name="password" placeholder="Password">
+                <p class="pass-error hide m-0 p-0">Password must have 8 to 12 Charecter</p>
+
+                <label for="password2" class="mt-2">Password</label>
+                <input class="px-2 py-1 br-5" type="password" id="password2" name="password2" placeholder="Password">
+                <p class="pass-error2 hide m-0 p-0">Password must have 8 to 12 Charecter</p>
+
+                <button type="submit" class="btn mt-4 login-btn">Submit</button>
+
+                <p class="mt-2 t-c fs-18">Alredy have an account? <a href="{% url 'loginBtn' %}">Log In</a></p>
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock %}
